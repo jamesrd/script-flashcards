@@ -36,16 +36,13 @@ function loadContent(contentPath) {
 
 function showContentList(items) {
 	var rootEl = document.getElementById("content");
-	while (rootEl.lastChild) {
-		rootEl.removeChild(rootEl.lastChild);
-	}
 	var ulEl = document.createElement("ul");
 	items.forEach(item => {
 		var iel = document.createElement("li");
-		iel.textContent = `${item.symbol} - ${item.name} - ${item.transcription} (${item.ipa})`;
+		iel.textContent = `${item.symbol} : ${item.name} - ${item.transcription} (${item.ipa})`;
 		ulEl.appendChild(iel);
 	});
-	rootEl.appendChild(ulEl);
+	rootEl.replaceChildren(ulEl);
 }
 
 window.onload = function() {
