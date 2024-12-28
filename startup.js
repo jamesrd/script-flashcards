@@ -1,3 +1,6 @@
+import * as listing from "./modules/listing.js";
+import * as quiz from "./modules/quiz.js";
+
 var contentName;
 var contentItems;
 var contentEl;
@@ -5,17 +8,15 @@ var contentEl;
 var navTargets = [
 	{
 		title: "Listing",
-		display: function() { showContentTable() }
+		display: function() { listing.showContentTable(contentEl, contentItems) }
 	},
 	{
 		title: "Test",
-		display: function() { testSkills() }
+		display: function() { quiz.testSkills(contentEl, contentItems) }
 	}
 ]
 
-var selectedNavTarget = 0;
-
-
+var selectedNavTarget = 1;
 
 function initialize() {
 	contentEl = document.getElementById("content");
@@ -78,39 +79,6 @@ function updateTitles() {
 async function loadContent(contentPath) {
 	return fetch(contentPath)
 		.then(response => response.json())
-}
-
-function showContentTable() {
-	var rdiv = document.createElement("div");
-	rdiv.classList.add("content-table");
-	var tel = document.createElement("table");
-	rdiv.appendChild(tel);
-	tel.appendChild(createTableRow("th", ["Symbol", "Name", "Transcription", "IPA"]));
-
-	contentItems.forEach(item => {
-		tel.appendChild(createTableRow("td", [item.symbol, item.name, item.transcription, item.ipa], ["symbol"]));
-	});
-	contentEl.replaceChildren(rdiv);
-}
-
-function createTableRow(ctype, cols, classes = []) {
-	var tr = document.createElement("tr");
-	cols.forEach((item, index) => {
-		var c = document.createElement(ctype);
-		c.textContent = item;
-		tr.appendChild(c);
-		var cn = classes[index];
-		if (cn != undefined) {
-			c.classList.add(cn);
-		}
-	})
-	return tr;
-}
-
-function testSkills() {
-	var d = document.createElement("div");
-	d.textContent = "coming soon";
-	contentEl.replaceChildren(d);
 }
 
 window.onload = function() {
