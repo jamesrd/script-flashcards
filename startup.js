@@ -1,12 +1,15 @@
 var contentName;
 var contentItems;
+var contentEl;
+
 
 function initialize() {
+	contentEl = document.getElementById("content");
 	// load configuration and setup
 	getConfiguration().then(setConfiguration);
 }
 
-function getConfiguration() {
+async function getConfiguration() {
 	return fetch("static/config.json").then(response => response.json());
 }
 
@@ -19,7 +22,8 @@ async function setConfiguration(config) {
 	contentItems = await loadContent(ci.path);
 
 	update_titles();
-	showContentList(contentItems);
+	showContentTable(contentItems);
+	console.log("Reloaded");
 }
 
 function update_titles() {
@@ -29,20 +33,32 @@ function update_titles() {
 	td.textContent = newTitle;
 }
 
-function loadContent(contentPath) {
+async function loadContent(contentPath) {
 	return fetch(contentPath)
 		.then(response => response.json())
 }
 
-function showContentList(items) {
-	var rootEl = document.getElementById("content");
-	var ulEl = document.createElement("ul");
+function showContentTable(items) {
+	var rdiv = document.createElement("div");
+	rdiv.classList.add("content-table");
+	var tel = document.createElement("table");
+	rdiv.appendChild(tel);
+	tel.appendChild(createTableRow("th", ["Symbol", "Name", "Transcription", "IPA"]));
+
 	items.forEach(item => {
-		var iel = document.createElement("li");
-		iel.textContent = `${item.symbol} : ${item.name} - ${item.transcription} (${item.ipa})`;
-		ulEl.appendChild(iel);
+		tel.appendChild(createTableRow("td", [item.symbol, item.name, item.transcription, item.ipa]));
 	});
-	rootEl.replaceChildren(ulEl);
+	contentEl.replaceChildren(rdiv);
+}
+
+function createTableRow(ctype, cols) {
+	var tr = document.createElement("tr");
+	cols.map((item) => {
+		var c = document.createElement(ctype);
+		c.textContent = item;
+		tr.appendChild(c);
+	})
+	return tr;
 }
 
 window.onload = function() {
