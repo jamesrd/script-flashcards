@@ -2,6 +2,20 @@ var contentName;
 var contentItems;
 var contentEl;
 
+var navTargets = [
+	{
+		title: "Listing",
+		display: function() { showContentTable() }
+	},
+	{
+		title: "Test",
+		display: function() { testSkills() }
+	}
+]
+
+var selectedNavTarget = 0;
+
+
 
 function initialize() {
 	contentEl = document.getElementById("content");
@@ -21,12 +35,40 @@ async function setConfiguration(config) {
 
 	contentItems = await loadContent(ci.path);
 
-	update_titles();
-	showContentTable(contentItems);
+	updateTitles();
+	setupNavBar();
+	navigateTo(selectedNavTarget);
 	console.log("Reloaded");
 }
 
-function update_titles() {
+function navigateTo(index) {
+	selectedNavTarget = index;
+	var nb = document.getElementById("nav-bar");
+	var buttons = nb.getElementsByTagName("button");
+	[...buttons].forEach((b, bi) => {
+
+		if (bi == selectedNavTarget) {
+			b.classList.add("selected");
+		} else {
+			b.classList.remove("selected");
+		}
+	})
+	navTargets[selectedNavTarget].display();
+}
+
+function setupNavBar() {
+	var nb = document.getElementById("nav-bar");
+	nb.replaceChildren();
+	navTargets.forEach((item, index) => {
+		var t = document.createElement("button");
+		t.id = `nav.${index}`;
+		t.textContent = item.title;
+		t.onclick = () => navigateTo(index);
+		nb.appendChild(t);
+	});
+}
+
+function updateTitles() {
 	var newTitle = `Learn ${contentName}`;
 	document.title = newTitle;
 	var td = document.getElementById("top-bar-title");
@@ -38,27 +80,37 @@ async function loadContent(contentPath) {
 		.then(response => response.json())
 }
 
-function showContentTable(items) {
+function showContentTable() {
 	var rdiv = document.createElement("div");
 	rdiv.classList.add("content-table");
 	var tel = document.createElement("table");
 	rdiv.appendChild(tel);
 	tel.appendChild(createTableRow("th", ["Symbol", "Name", "Transcription", "IPA"]));
 
-	items.forEach(item => {
-		tel.appendChild(createTableRow("td", [item.symbol, item.name, item.transcription, item.ipa]));
+	contentItems.forEach(item => {
+		tel.appendChild(createTableRow("td", [item.symbol, item.name, item.transcription, item.ipa], ["symbol"]));
 	});
 	contentEl.replaceChildren(rdiv);
 }
 
-function createTableRow(ctype, cols) {
+function createTableRow(ctype, cols, classes = []) {
 	var tr = document.createElement("tr");
-	cols.map((item) => {
+	cols.forEach((item, index) => {
 		var c = document.createElement(ctype);
 		c.textContent = item;
 		tr.appendChild(c);
+		var cn = classes[index];
+		if (cn != undefined) {
+			c.classList.add(cn);
+		}
 	})
 	return tr;
+}
+
+function testSkills() {
+	var d = document.createElement("div");
+	d.textContent = "coming soon";
+	contentEl.replaceChildren(d);
 }
 
 window.onload = function() {

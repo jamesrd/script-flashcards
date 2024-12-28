@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+div#content {
+    padding: 3px;
+}
+
 .content-table table, th, td {
     border: 1px solid;
     border-collapse: collapse;
@@ -16,3 +20,29 @@ body {
 .content-table th, td {
     padding: .3em;
 }
+
+.content-table td.symbol {
+    font-size: x-large;
+}
+
+#nav-bar {
+    background-color: darkgray;
+}
+
+#nav-bar button {
+    padding: 1em;
+    background-color: darkgray;
+    color: white;
+    border: none;
+    margin: 1px 1px 0px 1px;
+}
+
+#nav-bar button:hover {
+    background-color: gray;
+}
+
+#nav-bar button.selected {
+    background-color: black;
+}
+
+
