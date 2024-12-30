@@ -1,18 +1,19 @@
 const template =
-	`<div class="mode-select"><select id="mode-select"></select></div>
-	<div id="score" class="score"></div>
+	`<div class="mode-select">Mode: <select id="mode-select"></select></div>
 	<div id="board">
 		<div id="quiz-subject"></div>
 		<div id="quiz-options"></div>
 	</div>
+	<div id="score" class="score"></div>
 	<div id="quiz-buttons">
 		<button id="quiz-reset">Reset</button>
 	</div>`;
 
 const modes = {
-	SymbolName: "Symbol",
-	NameSymbol: "Name",
-	Transcription: "Transcription"
+	SymbolName: "Name of rune",
+	NameSymbol: "Rune from name",
+	SymbolTranscription: "Transcription of rune",
+	TranscriptionSymbol: "Rune from transcription"
 }
 
 var testState = {
@@ -77,19 +78,19 @@ function updateSubjectPanel() {
 }
 
 function getItemsForMode(item) {
-	var symbol, name;
+	var symbols = [], names = [];
 	switch (testState.mode) {
 		case modes.NameSymbol:
-			symbol = item.name;
-			name = item.symbol;
+			symbols.push(item.name);
+			names.push(item.symbol);
 			break;
 		default: // modes.SymbolName
-			symbol = item.symbol;
-			name = item.name;
+			symbols.push(item.symbol);
+			names.push(item.name);
 	}
 	return {
-		symbol: symbol,
-		name: name
+		symbols: symbols,
+		names: names
 	};
 }
 
@@ -98,9 +99,13 @@ function setupItems() {
 	symbolItems = [];
 	optionItems = new Set();
 	quizItems.forEach((item, index) => {
-		var { symbol, name } = getItemsForMode(item);
-		symbolItems.push([symbol, index]);
-		optionItems.add([name, index]);
+		var { symbols, names } = getItemsForMode(item);
+		symbols.forEach((symbol) => {
+			symbolItems.push([symbol, index]);
+		});
+		names.forEach((name) => {
+			optionItems.add([name, index]);
+		});
 	});
 	randomizeSubjects();
 }

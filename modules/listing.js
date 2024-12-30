@@ -8,7 +8,7 @@ export function showContentTable(contentEl, contentItems) {
 	tel.appendChild(utilities.createTableRow("th", ["Symbol", "Name", "Transcription", "IPA"]));
 
 	contentItems.forEach(item => {
-		tel.appendChild(utilities.createTableRow("td", [item.symbol, item.name, item.transcription, item.ipa], ["symbol"]));
+		tel.appendChild(utilities.createTableRow("td", [item.symbol, item.name, item.transcription.join(', '), item.ipa.join(', ')], ["symbol"]));
 	});
 	contentEl.replaceChildren(rdiv);
 }

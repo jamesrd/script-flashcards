@@ -2,97 +2,184 @@
 	{
 		"symbol": "ᚠ",
 		"name": "fé",
-		"transcription": "f",
-		"ipa": "[f]"
+		"transcription": [
+			"f"
+		],
+		"ipa": [
+			"[f]"
+		]
 	},
 	{
 		"symbol": "ᚢ",
 		"name": "ur",
-		"transcription": "u, o, y, œ, w / v",
-		"ipa": "[u], [ø], [y], [œ], [v], [w]"
+		"transcription": [
+			"u",
+			"o",
+			"y",
+			"œ",
+			"w",
+			"v"
+		],
+		"ipa": [
+			"[u]",
+			"[ø]",
+			"[y]",
+			"[œ]",
+			"[v]",
+			"[w]"
+		]
 	},
 	{
 		"symbol": "ᚦ",
 		"name": "thurs",
-		"transcription": "þ, ð",
-		"ipa": "[θ], [ð]"
+		"transcription": [
+			"þ",
+			"ð"
+		],
+		"ipa": [
+			"[θ]",
+			"[ð]"
+		]
 	},
 	{
 		"symbol": "ᚬ",
 		"name": "oss",
-		"transcription": "ą, o",
-		"ipa": "[ɑ̃], [o(ː)]"
+		"transcription": [
+			"ą",
+			"o"
+		],
+		"ipa": [
+			"[ɑ̃]",
+			"[o(ː)]"
+		]
 	},
 	{
 		"symbol": "ᚱ",
 		"name": "reið",
-		"transcription": "r",
-		"ipa": "[r]"
+		"transcription": [
+			"r"
+		],
+		"ipa": [
+			"[r]"
+		]
 	},
 	{
 		"symbol": "ᚴ",
 		"name": "kaun",
-		"transcription": "k, g",
-		"ipa": "[k], [g]"
+		"transcription": [
+			"k",
+			"g"
+		],
+		"ipa": [
+			"[k]",
+			"[g]"
+		]
 	},
 	{
 		"symbol": "ᚼ",
 		"name": "hagall",
-		"transcription": "h",
-		"ipa": "[h]"
+		"transcription": [
+			"h"
+		],
+		"ipa": [
+			"[h]"
+		]
 	},
 	{
 		"symbol": "ᚾ",
 		"name": "nauðr",
-		"transcription": "n",
-		"ipa": "[n]"
+		"transcription": [
+			"n"
+		],
+		"ipa": [
+			"[n]"
+		]
 	},
 	{
 		"symbol": "ᛁ",
 		"name": "íss",
-		"transcription": "i",
-		"ipa": "[i(ː)]"
+		"transcription": [
+			"i"
+		],
+		"ipa": [
+			"[i(ː)]"
+		]
 	},
 	{
 		"symbol": "ᛅ",
 		"name": "ár",
-		"transcription": "a",
-		"ipa": "[a]"
+		"transcription": [
+			"a"
+		],
+		"ipa": [
+			"[a]"
+		]
 	},
 	{
 		"symbol": "ᛋ",
 		"name": "sól",
-		"transcription": "s, z",
-		"ipa": "[s], [z]"
+		"transcription": [
+			"s",
+			"z"
+		],
+		"ipa": [
+			"[s]",
+			"[z]"
+		]
 	},
 	{
 		"symbol": "ᛏ",
 		"name": "Týr",
-		"transcription": "t, d",
-		"ipa": "[t], [d]"
+		"transcription": [
+			"t",
+			"d"
+		],
+		"ipa": [
+			"[t]",
+			"[d]"
+		]
 	},
 	{
 		"symbol": "ᛒ",
 		"name": "bjarkan",
-		"transcription": "b",
-		"ipa": "[b], [p]"
+		"transcription": [
+			"b"
+		],
+		"ipa": [
+			"[b]",
+			"[p]"
+		]
 	},
 	{
 		"symbol": "ᛘ",
 		"name": "maðr",
-		"transcription": "m",
-		"ipa": "[m]"
+		"transcription": [
+			"m"
+		],
+		"ipa": [
+			"[m]"
+		]
 	},
 	{
 		"symbol": "ᛚ",
 		"name": "lögr",
-		"transcription": "l",
-		"ipa": "[l]"
+		"transcription": [
+			"l"
+		],
+		"ipa": [
+			"[l]"
+		]
 	},
 	{
 		"symbol": "ᛉ",
 		"name": "yr",
-		"transcription": "ʀ, y",
-		"ipa": "[ɻ], [y]"
+		"transcription": [
+			"ʀ",
+			"y"
+		],
+		"ipa": [
+			"[ɻ]",
+			"[y]"
+		]
 	}
 ]

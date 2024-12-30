@@ -78,7 +78,7 @@ function updateTitles() {
 }
 
 async function loadContent(contentPath) {
-	return fetch(contentPath)
+	return fetch(contentPath, { cache: "no-store" })
 		.then(response => response.json())
 }
 
