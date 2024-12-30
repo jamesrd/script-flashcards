@@ -84,6 +84,14 @@ function getItemsForMode(item) {
 			symbols.push(item.name);
 			names.push(item.symbol);
 			break;
+		case modes.SymbolTranscription:
+			symbols.push(item.symbol);
+			names.push(...item.transcription);
+			break;
+		case modes.TranscriptionSymbol:
+			names.push(item.symbol);
+			symbols.push(...item.transcription);
+			break;
 		default: // modes.SymbolName
 			symbols.push(item.symbol);
 			names.push(item.name);
