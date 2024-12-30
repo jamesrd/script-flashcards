@@ -11,19 +11,21 @@ const template =
 var testState = {
 	total: 0,
 	correct: 0,
-	currentIndex: 0
+	currentId: 0,
+	subjectsAvailable: [],
 };
 
 var quizItems = [];
+var optionItems = new Set();
+var symbolItems = [];
 
 function resetTest() {
 	testState.correct = 0;
 	testState.total = 0;
 	updateScore();
-	testState.currentIndex = 0;
+	randomizeSubjects();
+	testState.currentId = testState.subjectsAvailable.shift();
 	updateSubjectPanel();
-
-	// then whatever other reset needs to be done
 }
 
 function updateScore() {
@@ -37,9 +39,12 @@ function changeScore(correct) {
 	updateScore();
 }
 
-function checkSelection(index) {
-	changeScore(testState.currentIndex == index);
-	testState.currentIndex = (testState.currentIndex + 1) % quizItems.length;
+function checkSelection(id) {
+	changeScore(symbolItems[testState.currentId][1] == id);
+	if (testState.subjectsAvailable.length == 0) {
+		randomizeSubjects();
+	}
+	testState.currentId = testState.subjectsAvailable.shift();
 	updateSubjectPanel();
 }
 
@@ -47,11 +52,11 @@ function createButtonPanel() {
 	var bp = document.createElement("div");
 	bp.classList.add("button-panel");
 
-	quizItems.forEach((item, index) => {
+	optionItems.forEach((item) => {
 		var qo = document.createElement("div");
 		qo.classList.add("option-button");
-		qo.onclick = function() { checkSelection(index) };
-		qo.innerText = item.name;
+		qo.onclick = function() { checkSelection(item[1]) };
+		qo.innerText = item[0];
 		bp.appendChild(qo);
 	});
 	var te = document.getElementById("quiz-options");
@@ -60,7 +65,25 @@ function createButtonPanel() {
 
 function updateSubjectPanel() {
 	var sp = document.getElementById("quiz-subject");
-	sp.innerText = quizItems[testState.currentIndex].symbol;
+	sp.innerText = symbolItems[testState.currentId][0];
+}
+
+function setupItems() {
+	// implement other quiz modes here
+	quizItems.forEach((item, index) => {
+		symbolItems.push([item.symbol, index]);
+		optionItems.add([item.name, index]);
+	});
+	randomizeSubjects();
+}
+
+function randomizeSubjects() {
+	var array = [...Array(symbolItems.length).keys()];
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	testState.subjectsAvailable = array;
 }
 
 export function testSkills(parent, contentItems) {
@@ -70,7 +93,7 @@ export function testSkills(parent, contentItems) {
 	d.innerHTML = template;
 	parent.replaceChildren(d);
 	document.getElementById("quiz-reset").onclick = function() { resetTest() };
-	updateScore();
+	setupItems();
 	createButtonPanel();
-	updateSubjectPanel();
+	resetTest();
 }
