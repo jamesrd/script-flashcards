@@ -1,22 +1,23 @@
 import * as listing from "./modules/listing.js";
 import * as quiz from "./modules/quiz.js";
 
+
 var contentName;
 var contentItems;
 var contentEl;
 
 var navTargets = [
 	{
-		title: "Listing",
-		display: function() { listing.showContentTable(contentEl, contentItems) }
-	},
-	{
 		title: "Test",
 		display: function() { quiz.testSkills(contentEl, contentItems) }
+	},
+	{
+		title: "Listing",
+		display: function() { listing.showContentTable(contentEl, contentItems) }
 	}
 ]
 
-var selectedNavTarget = 1;
+var selectedNavTarget = 0;
 
 function initialize() {
 	contentEl = document.getElementById("content");

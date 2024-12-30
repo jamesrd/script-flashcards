@@ -5,6 +5,7 @@ body {
 
 div#content {
     padding: 3px;
+    margin: 1em;
 }
 
 .content-table table, th, td {
@@ -27,6 +28,7 @@ div#content {
 
 #nav-bar {
     background-color: darkgray;
+    padding: .1em 1em 0em .1em;
 }
 
 #nav-bar button {
@@ -45,4 +47,29 @@ div#content {
     background-color: black;
 }
 
+#board {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    text-align: center;
+}
 
+#quiz-subject {
+    font-size: 4em;
+    border: 1px solid;
+    align-content: center;
+    width: 2em;
+}
+
+#quiz-options .button-panel {
+    display: grid;
+    column-gap: 5px;
+    row-gap: 5px;
+    padding: 1em;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.option-button {
+    border: 1px solid;
+    padding: .25em;
+}
