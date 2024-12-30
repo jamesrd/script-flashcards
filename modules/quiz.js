@@ -1,5 +1,6 @@
 const template =
-	`<div id="score" class="score"></div>
+	`<div class="mode-select"><select id="mode-select"></select></div>
+	<div id="score" class="score"></div>
 	<div id="board">
 		<div id="quiz-subject"></div>
 		<div id="quiz-options"></div>
@@ -8,7 +9,14 @@ const template =
 		<button id="quiz-reset">Reset</button>
 	</div>`;
 
+const modes = {
+	SymbolName: "Symbol",
+	NameSymbol: "Name",
+	Transcription: "Transcription"
+}
+
 var testState = {
+	mode: modes.SymbolName,
 	total: 0,
 	correct: 0,
 	currentId: 0,
@@ -68,11 +76,31 @@ function updateSubjectPanel() {
 	sp.innerText = symbolItems[testState.currentId][0];
 }
 
+function getItemsForMode(item) {
+	var symbol, name;
+	switch (testState.mode) {
+		case modes.NameSymbol:
+			symbol = item.name;
+			name = item.symbol;
+			break;
+		default: // modes.SymbolName
+			symbol = item.symbol;
+			name = item.name;
+	}
+	return {
+		symbol: symbol,
+		name: name
+	};
+}
+
 function setupItems() {
 	// implement other quiz modes here
+	symbolItems = [];
+	optionItems = new Set();
 	quizItems.forEach((item, index) => {
-		symbolItems.push([item.symbol, index]);
-		optionItems.add([item.name, index]);
+		var { symbol, name } = getItemsForMode(item);
+		symbolItems.push([symbol, index]);
+		optionItems.add([name, index]);
 	});
 	randomizeSubjects();
 }
@@ -86,6 +114,17 @@ function randomizeSubjects() {
 	testState.subjectsAvailable = array;
 }
 
+function changeMode(newMode) {
+	testState.mode = newMode;
+	setupItems();
+	createButtonPanel();
+	resetTest();
+}
+
+function modeChanged(element) {
+	changeMode(element.value);
+}
+
 export function testSkills(parent, contentItems) {
 	quizItems = contentItems;
 	var d = document.createElement("div");
@@ -93,7 +132,13 @@ export function testSkills(parent, contentItems) {
 	d.innerHTML = template;
 	parent.replaceChildren(d);
 	document.getElementById("quiz-reset").onclick = function() { resetTest() };
-	setupItems();
-	createButtonPanel();
-	resetTest();
+	var ms = document.getElementById("mode-select");
+	ms.onchange = function() { modeChanged(this) };
+	Object.keys(modes).forEach(element => {
+		var o = document.createElement("option");
+		o.setAttribute("value", modes[element]);
+		o.innerText = modes[element];
+		ms.appendChild(o);
+	});
+	changeMode(testState.mode);
 }

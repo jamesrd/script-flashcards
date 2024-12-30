@@ -58,7 +58,8 @@ div#content {
     font-size: 4em;
     border: 1px solid;
     align-content: center;
-    width: 2em;
+    padding-left: .5em;
+    padding-right: .5em;
 }
 
 #quiz-options .button-panel {
